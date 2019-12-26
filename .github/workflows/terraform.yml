@@ -22,7 +22,6 @@ jobs:
           actions_subcommand: 'init'
           tf_actions_working_dir: ./_example/public-private-subnet    
       
-      
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -30,6 +29,14 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: us-east-2      
      
+      - name: 'Terratest For public-private-subnet'
+        uses: sohanyadav/github-actions@master
+        with:
+          actions_subcommand: 'plan'
+          tf_actions_working_dir: ./_example/public-private-subnet
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 'Terratest For public-private-subnet'
         uses: sohanyadav/github-actions@master
         with:

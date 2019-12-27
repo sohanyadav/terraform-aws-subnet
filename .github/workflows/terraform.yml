@@ -12,25 +12,25 @@ jobs:
         uses: actions/checkout@master
 
       - name: 'Terraform Format'
-        uses: sohanyadav/github-actions@master
+        uses: clouddrove/github-actions@CD-89
         with:
           actions_subcommand: 'fmt'
 
       - name: 'Terraform Init fot public-private-subnet'
-        uses: sohanyadav/github-actions@master
+        uses: clouddrove/github-actions@master
         with:
           actions_subcommand: 'init'
           tf_actions_working_dir: ./_example/public-private-subnet    
       
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: clouddrove/configure-aws-credentials@v1
         with:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: us-east-2      
      
-      - name: 'Terratest For public-private-subnet'
-        uses: sohanyadav/github-actions@master
+      - name: 'Terraform Plan For public-private-subnet'
+        uses: clouddrove/github-actions@CD-89
         with:
           actions_subcommand: 'plan'
           tf_actions_working_dir: ./_example/public-private-subnet
@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Terratest For public-private-subnet'
-        uses: sohanyadav/github-actions@master
+        uses: clouddrove/github-actions@CD-89
         with:
           actions_subcommand: 'terratest'
           tf_actions_working_dir: ./_test/public-private-subnet
@@ -46,7 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Terratest For public-subnet'
-        uses: sohanyadav/github-actions@master
+        uses: clouddrove/github-actions@CD-89
         with:
           actions_subcommand: 'terratest'
           tf_actions_working_dir: ./_test/public-subnet
@@ -55,7 +55,7 @@ jobs:
 
 
       - name: 'Slack Notification'
-        uses: 8398a7/action-slack@v2
+        uses: clouddrove/action-slack@v2
         with:
           status: ${{ job.status }}
           fields: repo,author
